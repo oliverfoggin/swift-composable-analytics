@@ -142,4 +142,4 @@ It will fail if the analytics is expected and not received. And it will fail if 
 
 ## Installation
 
-You can add ComposableAnalytics to your project by... 
+You can add ComposableAnalytics to your project by adding `https://github.com/oliverfoggin/swift-composable-analytics` into the SPM packages for your project.
