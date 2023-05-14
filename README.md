@@ -14,11 +14,11 @@ Composable Analytics provides an `AnalyticsReducer` which provides all the worki
 At the entry point of your app when you first create the `Store` you can update the analytics here. This package provides a `.consoleLogger` client and you can add your own too.
 
 ```
-		Store(
-			initialState: App.State(),
-			reducer: App()
-				.dependency(\.analyticsClient, AnalyticsClient.consoleLogger)
-		)
+Store(
+	initialState: App.State(),
+	reducer: App()
+		.dependency(\.analyticsClient, AnalyticsClient.consoleLogger)
+)
 ```
 
 Then in any `Reducer` within the app you can add an `AnalyticsReducer` to the `body`. This is created with a function that takes `state` and `action` and returns an `AnalyticsData`.
@@ -97,17 +97,17 @@ public extension AnalyticsClient {
 This could be your Firebase implementation. Which you then add to the store by merging with any other clients you want to use...
 
 ```
-	let analytics = AnalyticsClient.merge(
-	// this merges multiple analytics clients into a single instance
-		.consoleLogger,
-		.firebaseClient
-	)
+let analytics = AnalyticsClient.merge(
+// this merges multiple analytics clients into a single instance
+	.consoleLogger,
+	.firebaseClient
+)
 
-	Store(
-		initialState: App.State(),
-		reducer: App()
-			.dependency(\.analyticsClient, analytics)
-	)
+Store(
+	initialState: App.State(),
+	reducer: App()
+		.dependency(\.analyticsClient, analytics)
+)
 ```
 
 ## Testing
