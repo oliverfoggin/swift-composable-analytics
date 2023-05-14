@@ -25,14 +25,14 @@ Then in any `Reducer` within the app you can add an `AnalyticsReducer` to the `b
 
 ```
 struct App: Reducer {
-  struct State {
+	struct State {
 		var title: String
-  }
-  
-  enum Action {
+	}
+
+	enum Action {
 		case buttonTapped
 	}
-	
+
 	var body: some ReducerOf<Self> {
 		AnalyticsReducer { state, action in
 			// state here is immutable so there is no way for your analytics to interfere with your app.
