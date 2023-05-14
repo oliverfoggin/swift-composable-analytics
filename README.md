@@ -51,6 +51,8 @@ struct App: Reducer {
 
 This keeps all of your analytics out of your working code but still in a place that makes it easy to see and reason about what analytics your app is sending.
 
+As most analytics will probably be events without any properties the `AnalyticsData` is expressible by string literal. So, `.event(name: "SomeName")` and `"SomeName"` are equivalent.
+
 As a personal preference,  I tend to use `default: return nil` at the end of it. `nil` is returned from the `AnalyticsReducer` for any action/state combination when you don't want it to send analytics. So it is a lot more convenient to wrap them all up in a `default` case at the end of the switch rather than list out all the actions and return `nil` from each.
 
 ## Custom Analytics Clients
