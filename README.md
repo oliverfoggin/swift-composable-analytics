@@ -21,7 +21,7 @@ Store(
 )
 ```
 
-Then in any `Reducer` within the app you can add an `AnalyticsReducer` to the `body`. This is created with a function that takes `state` and `action` and returns an `AnalyticsData`.
+Then in any `Reducer` within the app you can add an `AnalyticsReducer` to the `body`. This is created with a function that takes `state` and `action` and returns an optional `AnalyticsData`.
 
 ```
 struct App: Reducer {
@@ -36,7 +36,6 @@ struct App: Reducer {
   var body: some ReducerOf<Self> {
     AnalyticsReducer { state, action in
       // state here is immutable so there is no way for your analytics to interfere with your app.
-      // and this function has no return so there are no additional effects to worry about (other than the analytics).
       switch action {
       case .buttonTapped:
         return  .event(name: "AppButtonTapped", properties: ["title": state.title])
