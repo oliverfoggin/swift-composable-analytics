@@ -15,9 +15,9 @@ At the entry point of your app when you first create the `Store` you can update 
 
 ```
 Store(
-	initialState: App.State(),
-	reducer: App()
-		.dependency(\.analyticsClient, AnalyticsClient.consoleLogger)
+  initialState: App.State(),
+  reducer: App()
+    .dependency(\.analyticsClient, AnalyticsClient.consoleLogger)
 )
 ```
 
@@ -25,28 +25,28 @@ Then in any `Reducer` within the app you can add an `AnalyticsReducer` to the `b
 
 ```
 struct App: Reducer {
-	struct State {
-		var title: String
-	}
+  struct State {
+    var title: String
+  }
 
-	enum Action {
-		case buttonTapped
-	}
+  enum Action {
+    case buttonTapped
+  }
 
-	var body: some ReducerOf<Self> {
-		AnalyticsReducer { state, action in
-			// state here is immutable so there is no way for your analytics to interfere with your app.
-			// and this function has no return so there are no additional effects to worry about (other than the analytics).
-			switch action {
-			case .buttonTapped:
-			  return  .event(name: "AppButtonTapped", properties: ["title": state.title])
-			}
-		}
-	
-	  Reduce<State, Action> { state, action in
-			// your normal app logic sits here unchanged
-		}
-	}
+  var body: some ReducerOf<Self> {
+    AnalyticsReducer { state, action in
+      // state here is immutable so there is no way for your analytics to interfere with your app.
+      // and this function has no return so there are no additional effects to worry about (other than the analytics).
+      switch action {
+      case .buttonTapped:
+        return  .event(name: "AppButtonTapped", properties: ["title": state.title])
+      }
+    }
+  
+    Reduce<State, Action> { state, action in
+      // your normal app logic sits here unchanged
+    }
+  }
 }
 ```
 
@@ -66,31 +66,31 @@ import FirebaseCrashlytics
 import ComposableAnalytics
 
 public extension AnalyticsClient {
-	static var firebaseClient: Self {
-		return .init(
-			sendAnalytics: { analyticsData in
-				switch analyticsData {
-				case let .event(name: name, properties: properties):
-					Firebase.Analytics.logEvent(name, parameters: properties)
+  static var firebaseClient: Self {
+    return .init(
+      sendAnalytics: { analyticsData in
+        switch analyticsData {
+        case let .event(name: name, properties: properties):
+          Firebase.Analytics.logEvent(name, parameters: properties)
 
-				case .userId(let id):
-					Firebase.Analytics.setUserID(id)
-					Crashlytics.crashlytics().setUserID(id)
+        case .userId(let id):
+          Firebase.Analytics.setUserID(id)
+          Crashlytics.crashlytics().setUserID(id)
 
-				case let .userProperty(name: name, value: value):
-					Firebase.Analytics.setUserProperty(value, forName: name)
+        case let .userProperty(name: name, value: value):
+          Firebase.Analytics.setUserProperty(value, forName: name)
 
-				case .screen(name: let name):
-					Firebase.Analytics.logEvent(AnalyticsEventScreenView, parameters: [
-						AnalyticsParameterScreenName: name
-					])
+        case .screen(name: let name):
+          Firebase.Analytics.logEvent(AnalyticsEventScreenView, parameters: [
+            AnalyticsParameterScreenName: name
+          ])
 
-				case .error(let error):
-					Crashlytics.crashlytics().record(error: error)
-				}
-			}
-		)
-	}
+        case .error(let error):
+          Crashlytics.crashlytics().record(error: error)
+        }
+      }
+    )
+  }
 }
 ```
 
@@ -98,15 +98,15 @@ This could be your Firebase implementation. Which you then add to the store by m
 
 ```
 let analytics = AnalyticsClient.merge(
-// this merges multiple analytics clients into a single instance
-	.consoleLogger,
-	.firebaseClient
+  // this merges multiple analytics clients into a single instance
+  .consoleLogger,
+  .firebaseClient
 )
 
 Store(
-	initialState: App.State(),
-	reducer: App()
-		.dependency(\.analyticsClient, analytics)
+  initialState: App.State(),
+  reducer: App()
+    .dependency(\.analyticsClient, analytics)
 )
 ```
 
@@ -121,18 +121,18 @@ import ComposableArchitecture
 
 @MainActor
 class AppTests: XCTestCase {
-	func testButtonTap() async throws {
-		let store = TestStore(
-			initialState: App.State.init(title: "Hello, world!"),
-			reducer: App()
-		)
+  func testButtonTap() async throws {
+    let store = TestStore(
+      initialState: App.State.init(title: "Hello, world!"),
+      reducer: App()
+    )
 
-		store.dependencies.analyticsClient.expect(
-			.event(name: "AppButtonTapped", properties: ["title": "Hello, world!"])
-		)
+    store.dependencies.analyticsClient.expect(
+      .event(name: "AppButtonTapped", properties: ["title": "Hello, world!"])
+    )
 
-		await store.send(.buttonTapped)
-	}
+    await store.send(.buttonTapped)
+  }
 }
 ```
 
