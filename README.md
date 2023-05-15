@@ -13,7 +13,7 @@ Composable Analytics provides an `AnalyticsReducer` which provides all the worki
 
 At the entry point of your app when you first create the `Store` you can update the analytics here. This package provides a `.consoleLogger` client and you can add your own too.
 
-```
+```swift
 Store(
   initialState: App.State(),
   reducer: App()
@@ -23,7 +23,7 @@ Store(
 
 Then in any `Reducer` within the app you can add an `AnalyticsReducer` to the `body`. This is created with a function that takes `state` and `action` and returns an optional `AnalyticsData`.
 
-```
+```swift
 struct App: Reducer {
   struct State {
     var title: String
@@ -61,7 +61,7 @@ This package only provides an analytics client for logging to the console. Acces
 
 For example, you may want to log analytics to Firebase. In which case you can add your own clients be extending `AnalyticsClient`...
 
-```
+```swift
 import Firebase
 import FirebaseCrashlytics
 import ComposableAnalytics
@@ -97,7 +97,7 @@ public extension AnalyticsClient {
 
 This could be your Firebase implementation. Which you then add to the store by merging with any other clients you want to use...
 
-```
+```swift
 let analytics = AnalyticsClient.merge(
   // this merges multiple analytics clients into a single instance
   .consoleLogger,
@@ -115,7 +115,7 @@ Store(
 
 This leans into the TCA way of testing. Because all your analytics are sent using Effects. This package provides an `expect` function that can be used to easily tell your test which analytics you are expecting during a test...
 
-```
+```swift
 import XCTest
 import ComposableArchitecture
 @testable import App
