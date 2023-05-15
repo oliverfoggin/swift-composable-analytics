@@ -1,6 +1,6 @@
 # Composable Analytics
 
-A composable and decoupled way to add analytics to any TCA project without getting the analytics and working code tangled up together.
+A composable, decoupled and testable way to add analytics to any TCA project without getting the analytics and working code tangled up together.
 
 * [Basic Usage](#basic-usage)
 * [Custom Analytics Clients](#custom-analytics-clients)
