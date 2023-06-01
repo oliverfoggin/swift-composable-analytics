@@ -25,8 +25,8 @@ public struct AnalyticsReducer<State, Action>: Reducer {
 			return .none
 		}
 		
-		return .fireAndForget { () async throws -> Void in
-			analyticsClient.sendAnalytics(analyticsData)
-		}
+		analyticsClient.sendAnalytics(analyticsData)
+		
+		return .none
 	}
 }
