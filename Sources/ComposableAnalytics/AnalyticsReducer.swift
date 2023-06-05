@@ -24,9 +24,9 @@ public struct AnalyticsReducer<State, Action>: Reducer {
 		guard let analyticsData = toAnalyticsData(state, action) else {
 			return .none
 		}
-		
-		analyticsClient.sendAnalytics(analyticsData)
-		
-		return .none
+
+		return .run { _ in
+			analyticsClient.sendAnalytics(analyticsData)
+		}
 	}
 }
