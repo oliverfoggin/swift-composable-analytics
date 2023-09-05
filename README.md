@@ -55,6 +55,34 @@ As most analytics will probably be events without any properties the `AnalyticsD
 
 As a personal preference,  I tend to use `default: return nil` at the end of it. `nil` is returned from the `AnalyticsReducer` for any action/state combination when you don't want it to send analytics. So it is a lot more convenient to wrap them all up in a `default` case at the end of the switch rather than list out all the actions and return `nil` from each.
 
+### On Change Analytics
+
+You can no trigger analytics from the change of state.
+
+If your state is like...
+
+```
+struct State {
+  var count: Int
+}
+```
+
+You can now add analytics when the count changes by adding a `.analyticsOnChange` to your reducer.
+
+```
+Reduce<State, Action> { state, action in
+  // feature reducer 
+}
+.analyticsOnChange(of: \.count) { oldValue, newValue in
+  return .event(
+    name: "countChanged", 
+    properties: [
+    "from": "\(oldValue)",
+    "to": "\(newValue)",
+	)
+}
+```
+
 ## Custom Analytics Clients
 
 This package only provides an analytics client for logging to the console. Accessible as `AnalyticsClient.consoleLogger` but you can very easily add your own custom clients.

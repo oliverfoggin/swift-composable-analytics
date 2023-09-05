@@ -1,6 +1,5 @@
 import Foundation
 import ComposableArchitecture
-import XCTestDynamicOverlay
 
 public struct AnalyticsReducer<State, Action>: Reducer {
 	@usableFromInline
