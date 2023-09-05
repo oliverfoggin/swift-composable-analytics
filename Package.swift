@@ -14,7 +14,7 @@ let package = Package(
 		.library(name: "ComposableAnalytics", targets: ["ComposableAnalytics"]),
 	],
 	dependencies: [
-		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", branch: "release/1.0"),
+		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", .upToNextMajor(from: "1.0.0")),
 	],
 	targets: [
 		.target(
