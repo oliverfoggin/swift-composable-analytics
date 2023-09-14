@@ -77,9 +77,10 @@ Reduce<State, Action> { state, action in
   return .event(
     name: "countChanged", 
     properties: [
-    "from": "\(oldValue)",
-    "to": "\(newValue)",
-	)
+      "from": "\(oldValue)",
+      "to": "\(newValue)",
+    ]
+  )
 }
 ```
 
