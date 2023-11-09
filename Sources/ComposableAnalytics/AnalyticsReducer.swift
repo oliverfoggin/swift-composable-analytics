@@ -1,7 +1,6 @@
 import Foundation
 import ComposableArchitecture
 
-@available(*, deprecated)
 public struct AnalyticsReducer<State, Action>: Reducer {
 	@usableFromInline
 	let toAnalyticsData: (State, Action) -> AnalyticsData?
