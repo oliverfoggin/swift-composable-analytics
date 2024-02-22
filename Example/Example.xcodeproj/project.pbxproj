@@ -8,21 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		CEAE89BE2B8802C600D8BB9D /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE89BD2B8802C600D8BB9D /* ExampleApp.swift */; };
-		CEAE89C02B8802C600D8BB9D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE89BF2B8802C600D8BB9D /* ContentView.swift */; };
+		CEAE89C02B8802C600D8BB9D /* CounterFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE89BF2B8802C600D8BB9D /* CounterFeature.swift */; };
 		CEAE89C22B8802C800D8BB9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEAE89C12B8802C800D8BB9D /* Assets.xcassets */; };
 		CEAE89C62B8802C800D8BB9D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEAE89C52B8802C800D8BB9D /* Preview Assets.xcassets */; };
 		CEAE89D02B88041900D8BB9D /* ComposableAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CEAE89CF2B88041900D8BB9D /* ComposableAnalytics */; };
 		CEAE89D22B8804F800D8BB9D /* swift-composable-analytics in Resources */ = {isa = PBXBuildFile; fileRef = CEAE89D12B8804F800D8BB9D /* swift-composable-analytics */; };
+		CEAE89D52B88075000D8BB9D /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE89D42B88075000D8BB9D /* AppFeature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CEAE89BA2B8802C600D8BB9D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEAE89BD2B8802C600D8BB9D /* ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleApp.swift; sourceTree = "<group>"; };
-		CEAE89BF2B8802C600D8BB9D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CEAE89BF2B8802C600D8BB9D /* CounterFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterFeature.swift; sourceTree = "<group>"; };
 		CEAE89C12B8802C800D8BB9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEAE89C32B8802C800D8BB9D /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		CEAE89C52B8802C800D8BB9D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CEAE89D12B8804F800D8BB9D /* swift-composable-analytics */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "swift-composable-analytics"; path = ..; sourceTree = "<group>"; };
+		CEAE89D42B88075000D8BB9D /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 			isa = PBXGroup;
 			children = (
 				CEAE89D12B8804F800D8BB9D /* swift-composable-analytics */,
+				CEAE89D32B8805FB00D8BB9D /* Core */,
 				CEAE89BC2B8802C600D8BB9D /* Example */,
 				CEAE89BB2B8802C600D8BB9D /* Products */,
 			);
@@ -58,7 +61,6 @@
 			isa = PBXGroup;
 			children = (
 				CEAE89BD2B8802C600D8BB9D /* ExampleApp.swift */,
-				CEAE89BF2B8802C600D8BB9D /* ContentView.swift */,
 				CEAE89C12B8802C800D8BB9D /* Assets.xcassets */,
 				CEAE89C32B8802C800D8BB9D /* Example.entitlements */,
 				CEAE89C42B8802C800D8BB9D /* Preview Content */,
@@ -72,6 +74,15 @@
 				CEAE89C52B8802C800D8BB9D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CEAE89D32B8805FB00D8BB9D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CEAE89BF2B8802C600D8BB9D /* CounterFeature.swift */,
+				CEAE89D42B88075000D8BB9D /* AppFeature.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,7 +162,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEAE89C02B8802C600D8BB9D /* ContentView.swift in Sources */,
+				CEAE89D52B88075000D8BB9D /* AppFeature.swift in Sources */,
+				CEAE89C02B8802C600D8BB9D /* CounterFeature.swift in Sources */,
 				CEAE89BE2B8802C600D8BB9D /* ExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
