@@ -69,8 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				CEAE89D12B8804F800D8BB9D /* swift-composable-analytics */,
-				CEAE89D32B8805FB00D8BB9D /* ExampleCore */,
 				CEAE89BC2B8802C600D8BB9D /* Example */,
+				CEAE89D32B8805FB00D8BB9D /* ExampleCore */,
 				CEAE89DD2B88374F00D8BB9D /* ExampleTests */,
 				CEAE89BB2B8802C600D8BB9D /* Products */,
 			);
@@ -88,9 +88,9 @@
 		CEAE89BC2B8802C600D8BB9D /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				CEAE89C32B8802C800D8BB9D /* Example.entitlements */,
 				CEAE89BD2B8802C600D8BB9D /* ExampleApp.swift */,
 				CEAE89C12B8802C800D8BB9D /* Assets.xcassets */,
-				CEAE89C32B8802C800D8BB9D /* Example.entitlements */,
 				CEAE89C42B8802C800D8BB9D /* Preview Content */,
 			);
 			path = Example;
@@ -107,10 +107,10 @@
 		CEAE89D32B8805FB00D8BB9D /* ExampleCore */ = {
 			isa = PBXGroup;
 			children = (
-				CEAE89E72B88DB6600D8BB9D /* AnalyticsClient */,
 				CEAE89D42B88075000D8BB9D /* AppFeature.swift */,
 				CEAE89BF2B8802C600D8BB9D /* CounterFeature.swift */,
 				CEAE89E52B88D1A100D8BB9D /* UserStatusFeature.swift */,
+				CEAE89E72B88DB6600D8BB9D /* AnalyticsClient */,
 			);
 			path = ExampleCore;
 			sourceTree = "<group>";
@@ -126,8 +126,8 @@
 		CEAE89E72B88DB6600D8BB9D /* AnalyticsClient */ = {
 			isa = PBXGroup;
 			children = (
-				CEAE89D62B8823E400D8BB9D /* LiveAnalytics.swift */,
 				CEAE89E82B88DB8300D8BB9D /* AnalyticEvent.swift */,
+				CEAE89D62B8823E400D8BB9D /* LiveAnalytics.swift */,
 			);
 			path = AnalyticsClient;
 			sourceTree = "<group>";
