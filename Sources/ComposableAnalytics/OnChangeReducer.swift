@@ -30,11 +30,11 @@ extension Reducer {
     ///       // Reducer logic...
     ///     }
     ///     .analyticsOnChange(
-    ///       client: analyticsClient,
-    ///       of: \.username,
-    ///       { oldValue, newValue in
-    ///         .event(name: "Username Changed", parameter: ["old": oldValue, "new": newValue])
-    ///       }
+    ///         client: analyticsClient,
+    ///         of: \.username,
+    ///         { oldValue, newValue in
+    ///             .event(name: "Username Changed", parameter: ["old": oldValue, "new": newValue])
+    ///         }
     ///     )
     ///   }
     /// }

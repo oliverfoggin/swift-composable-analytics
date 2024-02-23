@@ -93,17 +93,3 @@ extension AnalyticsClient {
 	}
 }
 
-#if DEBUG
-extension AnalyticsClient where DataType: Equatable {
-    public mutating func expect(_ expectedAnalytics: DataType?) {
-        let fulfill = expectation(description: "analytics")
-        self.sendAnalytics = { @Sendable [self] analytics in
-            if let expectedAnalytics, analytics == expectedAnalytics {
-                fulfill()
-            } else {
-                self.sendAnalytics(analytics)
-            }
-        }
-    }
-}
-#endif
