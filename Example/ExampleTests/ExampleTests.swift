@@ -4,6 +4,56 @@ import XCTest
 
 @MainActor
 final class ExampleTests: XCTestCase {
+    func testAppFeatureOnStartReceivesAnalytics() async {
+        let store = TestStore(
+            initialState: AppFeature.State(),
+            reducer: {
+                AppFeature()
+            },
+            withDependencies: {
+                $0.analyticsClient = .consoleLogger
+            }
+        )
+        
+        store.dependencies.analyticsClient.expect(
+            .user(id: "user-1")
+        )
+        
+        store.dependencies.analyticsClient.expect(
+            .event(name: "app-start")
+        )
+        
+        await store.send(.task).finish()
+    }
+    
+    func testAppFeatureReceivesUserAnalytics() async {
+        let store = TestStore(
+            initialState: AppFeature.State(),
+            reducer: {
+                AppFeature()
+            },
+            withDependencies: {
+                $0.analyticsClient = .consoleLogger
+            }
+        )
+        
+        store.dependencies.analyticsClient.expect(
+            .event(
+                name: "user-status",
+                parameter: [
+                    "from": UserStatus.standard.title,
+                    "to": UserStatus.premium.title
+                ]
+            )
+        )
+        
+        let task = await store.send(.userStatus(.toggleStatus)) {
+            $0.userStatus.status = .premium
+        }
+        
+        await task.finish()
+    }
+    
     func testCounterIncrementReceivesAnalytics() async {
         let store = TestStore(
             initialState: CounterFeature.State(),

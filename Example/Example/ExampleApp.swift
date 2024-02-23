@@ -1,10 +1,13 @@
+import ComposableArchitecture
 import SwiftUI
 
 @main
 struct ExampleApp: App {
     var body: some Scene {
         WindowGroup {
-            AppFeatureView(store: appStore)
+            if !_XCTIsTesting {
+                AppFeatureView(store: appStore)
+            }
         }
     }
 }

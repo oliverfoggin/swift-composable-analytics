@@ -16,6 +16,7 @@
 		CEAE89D52B88075000D8BB9D /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE89D42B88075000D8BB9D /* AppFeature.swift */; };
 		CEAE89D72B8823E500D8BB9D /* LiveAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE89D62B8823E400D8BB9D /* LiveAnalytics.swift */; };
 		CEAE89DF2B88374F00D8BB9D /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE89DE2B88374F00D8BB9D /* ExampleTests.swift */; };
+		CEAE89E62B88D1A100D8BB9D /* UserStatusFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE89E52B88D1A100D8BB9D /* UserStatusFeature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		CEAE89D62B8823E400D8BB9D /* LiveAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAnalytics.swift; sourceTree = "<group>"; };
 		CEAE89DC2B88374F00D8BB9D /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEAE89DE2B88374F00D8BB9D /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
+		CEAE89E52B88D1A100D8BB9D /* UserStatusFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusFeature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +105,9 @@
 		CEAE89D32B8805FB00D8BB9D /* ExampleCore */ = {
 			isa = PBXGroup;
 			children = (
-				CEAE89BF2B8802C600D8BB9D /* CounterFeature.swift */,
 				CEAE89D42B88075000D8BB9D /* AppFeature.swift */,
+				CEAE89BF2B8802C600D8BB9D /* CounterFeature.swift */,
+				CEAE89E52B88D1A100D8BB9D /* UserStatusFeature.swift */,
 				CEAE89D62B8823E400D8BB9D /* LiveAnalytics.swift */,
 			);
 			path = ExampleCore;
@@ -226,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEAE89D52B88075000D8BB9D /* AppFeature.swift in Sources */,
+				CEAE89E62B88D1A100D8BB9D /* UserStatusFeature.swift in Sources */,
 				CEAE89C02B8802C600D8BB9D /* CounterFeature.swift in Sources */,
 				CEAE89D72B8823E500D8BB9D /* LiveAnalytics.swift in Sources */,
 				CEAE89BE2B8802C600D8BB9D /* ExampleApp.swift in Sources */,

@@ -24,19 +24,6 @@ public struct CounterFeature: Reducer {
     public init() {}
     
     public var body: some Reducer<State, Action> {
-        analytics.reduce { state, action in
-            switch action {
-            case .incrementTapped:
-                return .event(name: "increment-tapped", parameter: ["count": "\(state.count)"])
-                
-            case .decrementTapped:
-                return .event(name: "decrement-tapped", parameter: ["count": "\(state.count)"])
-
-            case .task:
-                return nil
-            }
-        }
-        
         Reduce<State, Action> { state, action in
             switch action {
             case .incrementTapped:
@@ -49,6 +36,19 @@ public struct CounterFeature: Reducer {
                 
             case .task:
                 return .none
+            }
+        }
+        
+        analytics.reduce { state, action in
+            switch action {
+            case .incrementTapped:
+                return .event(name: "increment-tapped", parameter: ["count": "\(state.count)"])
+                
+            case .decrementTapped:
+                return .event(name: "decrement-tapped", parameter: ["count": "\(state.count)"])
+
+            case .task:
+                return nil
             }
         }
     }

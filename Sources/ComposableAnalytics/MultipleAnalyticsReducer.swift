@@ -1,33 +1,19 @@
 import Foundation
 import ComposableArchitecture
 
-public struct MultipleAnalyticsReducer<State, Action>: Reducer {
-	@usableFromInline
-	let toAnalyticsData: (State, Action) -> [AnalyticsData]?
-
-	@usableFromInline
-	@Dependency(\.analyticsClient) var analyticsClient
-
-	@inlinable
-	public init(_ toAnalyticsData: @escaping (State, Action) -> [AnalyticsData]?) {
-		self.init(toAnalyticsData: toAnalyticsData, internal: ())
-	}
-
-	@usableFromInline
-	init(toAnalyticsData: @escaping (State, Action) -> [AnalyticsData]?, internal: Void) {
-		self.toAnalyticsData = toAnalyticsData
-	}
-
-	@inlinable
-	public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-		guard let analyticsData = toAnalyticsData(state, action) else {
-			return .none
-		}
-
-		return .concatenate(
-			analyticsData.map { data in
-				.run { _ in analyticsClient.sendAnalytics(data) }
-			}
-		)
-	}
+public extension AnalyticClientProtocol {
+    @inlinable
+    func reduceMultiple<State, Action>(
+        _ toAnalyticsData: @escaping (State, Action) -> [DataType]?
+    ) -> some Reducer<State, Action> {
+        Reduce<State, Action> { state, action in
+            guard let events = toAnalyticsData(state, action) else { return .none }
+            
+            return .concatenate(
+                events.map { data in
+                    .run { _ in self.sendAnalytics(data) }
+                }
+            )
+        }
+    }
 }
