@@ -19,19 +19,21 @@ public struct CounterFeature: Reducer {
         case decrementTapped
     }
     
+    @Dependency(\.analyticsClient) var analytics
+
     public init() {}
     
     public var body: some Reducer<State, Action> {
-        AnalyticsReducer { state, action in
+        analytics.reduce { state, action in
             switch action {
-            case .task:
-                return .screen(name: "counter-feature")
-                
             case .incrementTapped:
-                return .event(name: "increment-tapped", properties: ["count": state.count])
+                return .event(name: "increment-tapped", parameter: ["count": "\(state.count)"])
                 
             case .decrementTapped:
-                return .event(name: "decrement-tapped", properties: ["count": state.count])
+                return .event(name: "decrement-tapped", parameter: ["count": "\(state.count)"])
+
+            case .task:
+                return nil
             }
         }
         

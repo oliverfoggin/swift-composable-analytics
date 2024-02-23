@@ -6,9 +6,6 @@ public let appStore = StoreOf<AppFeature>(
     initialState: AppFeature.State(),
     reducer: {
         AppFeature()
-    },
-    withDependencies: {
-        $0.analyticsClient = .consoleLogger
     }
 )
 
@@ -35,8 +32,8 @@ public struct AppFeature: Reducer {
             switch action {
             case .task:
                 return .run { _ in
-                    analyticsClient.sendAnalytics(.userId(UUID().uuidString))
-                    analyticsClient.sendAnalytics(.userProperty(name: "username", value: "premium-user"))
+                    analyticsClient.sendAnalytics(.user(id: "user-1"))
+                    analyticsClient.sendAnalytics(.event(name: "app-start"))
                 }
                 
             case .counter:
