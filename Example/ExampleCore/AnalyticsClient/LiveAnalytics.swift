@@ -1,13 +1,6 @@
 import Dependencies
 import ComposableAnalytics
 
-public enum AnalyticEvent {
-    case event(name: String, parameter: [String: String] = [:])
-    case user(id: String, parameters: [String: String] = [:])
-}
-
-extension AnalyticEvent: Equatable {}
-
 public typealias AnalyticEventClient = AnalyticsClient<AnalyticEvent>
 
 public extension DependencyValues {
@@ -21,22 +14,34 @@ extension AnalyticEventClient: DependencyKey {
     public static var liveValue: AnalyticsClient {
         .merge(
             .googleAnalytics,
-            .otherAnalytics
+            .crashlytics
         )
     }
     
+    /// Here we could define our implementation for Google Analytics
     public static var googleAnalytics: AnalyticEventClient {
         AnalyticEventClient(
             sendAnalytics: { event in
-                print("Sending to Google -- ", event)
+                switch event {
+                case .event(let name, let parameter):
+                    print("[FIREBASE] EVENT", name, parameter)
+                    
+                case .user(let id, let parameters):
+                    print("[FIREBASE] USER", id, parameters)
+                }
             }
         )
     }
     
-    public static var otherAnalytics: AnalyticEventClient {
+    public static var crashlytics: AnalyticEventClient {
         AnalyticEventClient(
             sendAnalytics: { event in
-                print("Sending to Other Service -- ", event)
+                switch event {
+                case .event(let name, let parameter):
+                    break
+                case .user(let id, let parameters):
+                    print("[CRASHLYTICS] USER", id, parameters)
+                }
             }
         )
     }
