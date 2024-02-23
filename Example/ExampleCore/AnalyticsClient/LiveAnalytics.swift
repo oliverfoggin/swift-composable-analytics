@@ -37,7 +37,7 @@ extension AnalyticEventClient: DependencyKey {
         AnalyticEventClient(
             sendAnalytics: { event in
                 switch event {
-                case .event(let name, let parameter):
+                case .event(_, _):
                     break
                 case .user(let id, let parameters):
                     print("[CRASHLYTICS] USER", id, parameters)
