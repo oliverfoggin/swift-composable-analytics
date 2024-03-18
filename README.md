@@ -61,7 +61,7 @@ You can no trigger analytics from the change of state.
 
 If your state is like...
 
-```
+```swift
 struct State {
   var count: Int
 }
@@ -69,7 +69,7 @@ struct State {
 
 You can now add analytics when the count changes by adding a `.analyticsOnChange` to your reducer.
 
-```
+```swift
 Reduce<State, Action> { state, action in
   // feature reducer 
 }
