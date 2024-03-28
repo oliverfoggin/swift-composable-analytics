@@ -1,33 +1,73 @@
 import Foundation
 import ComposableArchitecture
 
-public struct MultipleAnalyticsReducer<State, Action>: Reducer {
-	@usableFromInline
-	let toAnalyticsData: (State, Action) -> [AnalyticsData]?
+public extension AnalyticsClient {
+    /// A reducer that runs to send multiple analytics event data simultaneously.
+    ///
+    /// This reducer should be composed in the `Reducer.body` in your 
+    /// feature to handle multiple analytics events per action:
+    ///
+    /// ```swift
+    /// enum AnalyticDataType {
+    ///     case event(name: String, parameter: [String: Int])
+    /// }
+    ///
+    /// @Reducer
+    /// struct Feature {
+    ///   struct State {
+    ///     // Properties...
+    ///   }
+    ///   enum Action {
+    ///     case buttonTapped
+    ///     // Other actions...
+    ///   }
+    ///
+    ///   @Dependency(\.analyticsClient) var analyticsClient
+    ///
+    ///   var body: some ReducerOf<Self> {
+    ///     Reduce { state, action in
+    ///       // Your feature's logic...
+    ///     }
+    ///
+    ///     analyticsClient.reduceMultiple { state, action in
+    ///         switch action {
+    ///         case .buttonTapped:
+    ///             return [
+    ///               AnalyticDataType.event(name: "button-tapped", parameter: ["count": state.count]),
+    ///               AnalyticDataType.event(name: "another-event", parameter: ["value": state.value])
+    ///             ]
+    ///         // Handle other actions...
+    ///         }
+    ///     }
+    ///   }
+    /// }
+    /// ```
+    ///
+    /// The `analyticsClient.reduceMultiple` method allows for sending 
+    /// multiple analytics events for a single action within your feature's reducer.
+    /// It runs after your feature's logic by default,
+    /// utilizing the state after changes have been applied.
+    /// _If_ you need to capture the state and actions before applying your feature's logic,
+    /// consider flipping the composition of your reducers.
+    ///
+    /// - Parameters:
+    ///   - toAnalyticsData: A closure that returns an array of the associated `DataType` 
+    ///   or `nil` if no events should be sent.
+    ///
+    /// - Returns: A reducer that sends multiple analytics events simultaneously.
 
-	@usableFromInline
-	@Dependency(\.analyticsClient) var analyticsClient
-
-	@inlinable
-	public init(_ toAnalyticsData: @escaping (State, Action) -> [AnalyticsData]?) {
-		self.init(toAnalyticsData: toAnalyticsData, internal: ())
-	}
-
-	@usableFromInline
-	init(toAnalyticsData: @escaping (State, Action) -> [AnalyticsData]?, internal: Void) {
-		self.toAnalyticsData = toAnalyticsData
-	}
-
-	@inlinable
-	public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-		guard let analyticsData = toAnalyticsData(state, action) else {
-			return .none
-		}
-
-		return .concatenate(
-			analyticsData.map { data in
-				.run { _ in analyticsClient.sendAnalytics(data) }
-			}
-		)
-	}
+    @inlinable
+    func reduceMultiple<State, Action>(
+        _ toAnalyticsData: @escaping (State, Action) -> [DataType]?
+    ) -> some Reducer<State, Action> {
+        Reduce<State, Action> { state, action in
+            guard let events = toAnalyticsData(state, action) else { return .none }
+            
+            return .concatenate(
+                events.map { data in
+                    .run { _ in self.sendAnalytics(data) }
+                }
+            )
+        }
+    }
 }
